@@ -42,7 +42,7 @@ function Login({ navigation }) {
                 <View style={{height: 20}} />
                 <ButtonLarge
                     title="Sign in"
-                    onPress={() => navigation.navigate("OtpVerify")}
+                    onPress={() => console.log("Button Pressed!")}
                 />
 
                 <View style={{ marginTop: 50, alignSelf: 'center', alignItems: 'center', flexDirection: 'row' }}>
@@ -53,7 +53,7 @@ function Login({ navigation }) {
                     }}>
                         Don't have account? </Text>
 
-                    <TouchableOpacity onPress={() => navigation.navigate("createAccount")} style={{ alignSelf: 'flex-end', marginRight: '5%' }}>
+                    <TouchableOpacity style={{ alignSelf: 'flex-end', marginRight: '5%' }}>
 
                         <Text style={{
                             fontSize: 14, color: '#040404',
