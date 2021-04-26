@@ -1,0 +1,1 @@
+export const BASE_URL='http://apishub.xyz/S_safe_city/';

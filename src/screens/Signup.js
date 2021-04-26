@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { View, Dimensions, TouchableOpacity, Text, ScrollView } from 'react-native';
 import Input from '../components/TextInput';
 import ButtonLarge from '../components/ButtonLarge';
-import {Loginaction} from '../Redux/Action/Action'
+import {Signupaction} from '../Redux/Action/Action'
 
 import {connect} from 'react-redux';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-function Login({ navigation,Loginaction }) {
+function Signup({ navigation,Signupaction }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [fname, setfname] = useState("")
+    const [lname, setlname] = useState("")
 
     const check= async()=>{
 
@@ -23,22 +25,34 @@ function Login({ navigation,Loginaction }) {
         {
             alert('Enter password')
         }
+        else if(lname=='')
+        {
+            alert('Enter lastname')
+        }
+        else if(fname=='')
+        {
+            alert('Enter Name')
+        }
         else {
         const formdata=new FormData();
-        formdata.append('email',email);
+        formdata.append('firstName',fname);
         formdata.append('password',password);
+        formdata.append('email',email);
+        formdata.append('lastName',lname);
       // console.log(formdata)
-        const res=await Loginaction(formdata);
-console.log('resssssssssssssssssssssssssssssssssssssssssssssss',res)
-if(res.data!=0)
-{
-navigation.navigate('Home')
-}
-else{
-    console.log('In correct')
-}
+        const res=await Signupaction(formdata);
+    // console.log(res)
+        if(res.data!=0)
+        {
+            navigation.navigate('Login')
         }
-    }
+        else{
+    console.log('not Correct')
+        }
+
+        }
+
+                }
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <ScrollView>
@@ -58,6 +72,19 @@ else{
                     onChangeText={text => setPassword(text)}
                 />
 
+<Input
+                    placeholder="First Name"
+                    onChangeText={text => setfname(text)}
+                    value={fname}
+                />
+
+                <Input
+                    placeholder="LastName"
+                    value={lname}
+                    onChangeText={text => setlname(text)}
+                />
+
+
                 {/* <TouchableOpacity onPress={() => navigation.navigate("ResetPassword")} style={{ alignSelf: 'flex-end', marginRight: '5%' }}>
 
                     <Text style={{
@@ -71,7 +98,7 @@ else{
 
                 <View style={{height: 20}} />
                 <ButtonLarge
-                    title="Sign in"
+                    title="Sign up"
                     onPress={check}
                 />
 
@@ -83,7 +110,7 @@ else{
                     }}>
                         Don't have account? </Text>
 
-                    <TouchableOpacity onPress={()=>navigation.navigate('Signup')} style={{ alignSelf: 'flex-end', marginRight: '5%' }}>
+                    <TouchableOpacity style={{ alignSelf: 'flex-end', marginRight: '5%' }}>
 
                         <Text style={{
                             fontSize: 14, color: '#040404',
@@ -100,15 +127,14 @@ else{
     );
 }
 
-
 const mapStatgetoprops=(state)=>{
 
-    const{job}=state.app;
+    const{jobs}=state.app;
 
     return{
-        job,
+        jobs,
     }
     }
 
 
-    export default connect(mapStatgetoprops,{Loginaction})(Login)
+    export default connect(mapStatgetoprops,{Signupaction})(Signup)
